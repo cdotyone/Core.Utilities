@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Linq;
 using System.Web;
-using Deloitte.Core.Web.Configuration;
+using Civic.Core.Web.Configuration;
 
-namespace PO.Core.Framework.Web.Modules
+namespace Civic.Core.Framework.Web.Modules
 {
 	public class Cors : IHttpModule
 	{
