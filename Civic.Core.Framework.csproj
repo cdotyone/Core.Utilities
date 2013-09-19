@@ -81,7 +81,9 @@
     <None Include="..\..\References\civic.snk">
       <Link>civic.snk</Link>
     </None>
-    <None Include="Nuget\Civic.Core.Framework.nuspec" />
+    <None Include="Nuget\Civic.Core.Framework.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Nuget\pack.bat" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 using System.Reflection;
 using Civic.Core.Configuration;
 
-namespace Civic.Core.Utility
+namespace Civic.Core.Framework
 {
     public static class ReflectionHelper
     {

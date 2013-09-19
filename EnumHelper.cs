@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Deloitte.Core.Utilities.Helpers
+namespace Civic.Core.Framework.Helpers
 {
     public static class EnumHelper
     {
