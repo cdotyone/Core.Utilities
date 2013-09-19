@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Web;
-using Civic.Core.Web.Configuration;
+using Civic.Core.Framework.Configuration;
 
 namespace Civic.Core.Framework.Web.Modules
 {
