@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
-using PO.Core.Configuration;
+using Civic.Core.Configuration;
 
-namespace PO.Core.Web.Configuration
+namespace Civic.Core.Framework.Configuration
 {
     public class CorsSection : SerializableConfigurationSection
     {
