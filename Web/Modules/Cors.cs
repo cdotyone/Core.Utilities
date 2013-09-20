@@ -37,20 +37,9 @@ namespace Civic.Core.Framework.Web.Modules
 				// does the configuration require the HTTP Method = OPTIONS
 				if(config.RequireOptions && string.Compare("OPTIONS", context.Request.HttpMethod,StringComparison.InvariantCultureIgnoreCase)!=0) return;
 
-				var allow = config.Allow;
-				var deny = config.Deny;
-
-				// must allow at least one domain type for this to continue
-				if (!allow.Any()) return;
-
-				var referrer = refereerUri.Host.ToLower();
-
-				// check for exclusions first
-				if (deny.Any(referrer.EndsWith)) return;
-
 				// now check for authorized domains
 				var response = context.Response;
-				if (allow.Any(referrer.EndsWith))
+				if (config.Allowed(refereerUri.Host))
 				{
 					if (refereerUri.Port == 80 || refereerUri.Port == 443)
 					{
@@ -68,6 +57,13 @@ namespace Civic.Core.Framework.Web.Modules
 					if (config.OutputAllowCredentials) response.AppendHeader("Access-Control-Allow-Credentials", "true");
 					if (!string.IsNullOrEmpty(config.AllowedHeaders)) response.AppendHeader("Access-Control-Allow-Headers", config.AllowedHeaders);
 					if (!string.IsNullOrEmpty(config.AllowedMethods)) response.AppendHeader("Access-Control-Allow-Methods", config.AllowedMethods);
+				}
+
+				if (string.Compare("OPTIONS", context.Request.HttpMethod, StringComparison.InvariantCultureIgnoreCase)==0)
+				{
+					response.Write("");
+					response.Flush();
+					response.End();
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using Civic.Core.Configuration;
 
 namespace Civic.Core.Framework.Configuration
@@ -9,8 +10,6 @@ namespace Civic.Core.Framework.Configuration
         #region Members
 
         private const string CORS_CONFIG_SECTION = "coreCors";
-		private List<string> _deny;
-		private List<string> _allow;
 		private static CorsSection _section;
 
         #endregion
@@ -84,7 +83,7 @@ namespace Civic.Core.Framework.Configuration
 		/// The headers that are allowed by the module, defaults to any,
 		/// if this is null or blank than the Access-Control-Allow-Headers header will not be sent
 		/// </summary>
-		[ConfigurationProperty("allowedHeaders", IsRequired = false, DefaultValue = "Content-Type, *")]
+		[ConfigurationProperty("allowedHeaders", IsRequired = false, DefaultValue = "Content-Type, X-Requested-With, *")]
 		public string AllowedHeaders
 		{
 			get { return (string)this["allowedHeaders"]; }
@@ -102,36 +101,10 @@ namespace Civic.Core.Framework.Configuration
 			set { this["allowedMethods"] = value; }
 		}
 
-	    public IList<string> Allow
-	    {
-		    get
-		    {
-				if (_allow == null) Init();
-			    return _allow;
-		    }
+		public bool Allowed(string domain)
+		{
+			domain = domain.ToLowerInvariant();
+			return Domains.Where(e => e.Allow).Any(e => e.Name.ToLowerInvariant().EndsWith(domain));
 	    }
-
-		public IList<string> Deny
-		{
-			get
-			{
-				if(_deny==null) Init();
-				return _deny;
-			}
-		}
-		
-		protected override void Init()
-		{
-			base.Init();
-
-			_allow = new List<string>();
-			_deny = new List<string>();
-
-			foreach (var e in Domains)
-			{
-				if (e.Allow && !_allow.Contains(e.Name)) _allow.Add(e.Name.ToLowerInvariant());
-				if (!e.Allow && !_allow.Contains(e.Name)) _deny.Add(e.Name.ToLowerInvariant());
-			}
-		}
     }
 }
