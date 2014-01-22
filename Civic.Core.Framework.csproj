@@ -76,6 +76,7 @@
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="Web\Modules\Cors.cs" />
+    <Compile Include="Web\Modules\DevAppRewrite.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\References\civic.snk">
