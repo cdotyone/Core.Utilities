@@ -26,7 +26,7 @@ namespace Civic.Core.Framework.Web.Modules
             if (context != null)
             {
                 var path = context.Request.Url.AbsolutePath.ToLowerInvariant();
-
+                 
                 // exclude things that we should not try to rewrite
                 if (path == @"/" || path == "/default.aspx" || path.StartsWith("/api/") || path.StartsWith("/app/") || path == "/Logon.aspx")
                 {
