@@ -62,7 +62,7 @@ namespace Civic.Core.Framework.Configuration
 		/// the number of seconds before the client is required to request permission again, defaults to 1 day
 		/// if it is set to zero or less it will not send the Access-Control-Max-Age header value
 		/// </summary>
-		[ConfigurationProperty("maxAge", IsRequired = false, DefaultValue = 86400)]
+        [ConfigurationProperty("maxAge", IsRequired = false, DefaultValue = 1728000)]
 		public int MaxAge
 		{
 			get { return (int)this["maxAge"]; }
