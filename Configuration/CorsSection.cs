@@ -83,7 +83,7 @@ namespace Civic.Core.Framework.Configuration
 		/// The headers that are allowed by the module, defaults to any,
 		/// if this is null or blank than the Access-Control-Allow-Headers header will not be sent
 		/// </summary>
-		[ConfigurationProperty("allowedHeaders", IsRequired = false, DefaultValue = "Content-Type, X-Requested-With, *")]
+		[ConfigurationProperty("allowedHeaders", IsRequired = false, DefaultValue = "Content-Type, X-Requested-With, Authorization, *")]
 		public string AllowedHeaders
 		{
 			get { return (string)this["allowedHeaders"]; }
