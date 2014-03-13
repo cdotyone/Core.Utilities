@@ -75,6 +75,7 @@
     <Compile Include="CryptoHelper.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="ResourceHelper.cs" />
+    <Compile Include="Security\Impersonator.cs" />
     <Compile Include="Security\IdentityHelper.cs" />
     <Compile Include="Web\Modules\Cors.cs" />
     <Compile Include="Web\Modules\DevAppRewrite.cs" />
