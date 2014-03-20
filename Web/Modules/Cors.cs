@@ -16,7 +16,7 @@ namespace Civic.Core.Framework.Web.Modules
 			context.BeginRequest += context_BeginRequest;
 		}
 
-        public void CheckForOptions(HttpContext context)
+        public bool CheckForOptions(HttpContext context)
         {
             var refereerUri = context.Request.UrlReferrer;
             if (refereerUri == null && !string.IsNullOrEmpty(context.Request.Headers["origin"]))
@@ -29,7 +29,7 @@ namespace Civic.Core.Framework.Web.Modules
                 var config = CorsSection.Current;
 
                 // does the configuration require the HTTP Method = OPTIONS
-                if (config.RequireOptions && string.Compare("OPTIONS", context.Request.HttpMethod, StringComparison.InvariantCultureIgnoreCase) != 0) return;
+                if (config.RequireOptions && string.Compare("OPTIONS", context.Request.HttpMethod, StringComparison.InvariantCultureIgnoreCase) != 0) return false;
 
                 // now check for authorized domains
                 var response = context.Response;
@@ -58,8 +58,10 @@ namespace Civic.Core.Framework.Web.Modules
                     response.Write("");
                     response.Flush();
                     response.End();
+                    return true;
                 }
             }
+            return false;
         }
 
 		/// <summary>
