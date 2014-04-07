@@ -16,6 +16,8 @@ namespace Civic.Core.Framework.Security
         {
             get
             {
+                if (HttpContext.Current == null) return System.Environment.MachineName;
+
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.UserHostName))
                     return HttpContext.Current.Request.UserHostName;
              
