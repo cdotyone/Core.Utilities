@@ -8,7 +8,8 @@ namespace Civic.Core.Framework.Security
         {
             get
             {
-                return "Unknown";
+                if (HttpContext.Current == null || HttpContext.Current.User==null || HttpContext.Current.User.Identity==null || !HttpContext.Current.User.Identity.IsAuthenticated) return "Unknown";
+                return HttpContext.Current.User.Identity.Name;
             }
         }
 
