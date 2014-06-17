@@ -1,9 +1,11 @@
 ﻿using System.Web;
+using Civic.Core.Framework.Configuration;
 
 namespace Civic.Core.Framework.Security
 {
     public static class IdentityManager
     {
+        // ReSharper disable ConditionIsAlwaysTrueOrFalse
         public static string Username
         {
             get
@@ -12,28 +14,36 @@ namespace Civic.Core.Framework.Security
                 return HttpContext.Current.User.Identity.Name;
             }
         }
+        // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
         public static string ClientMachine
         {
             get
             {
-                if (HttpContext.Current == null) return System.Environment.MachineName;
-
+                var client = "";
+                if (HttpContext.Current == null) client = System.Environment.MachineName;
+                else 
                 if (!string.IsNullOrEmpty(HttpContext.Current.Request.UserHostName))
-                    return HttpContext.Current.Request.UserHostName;
-             
-                if (!string.IsNullOrEmpty(HttpContext.Current.Request.UserHostAddress))
-                    return HttpContext.Current.Request.UserHostAddress;
+                    client = HttpContext.Current.Request.UserHostName;
+                else if (!string.IsNullOrEmpty(HttpContext.Current.Request.UserHostAddress))
+                    client = HttpContext.Current.Request.UserHostAddress;
 
-                // TODO: THIS NEEDS TO BE OPTIONALLY TURNED ON
-                foreach (var key in HttpContext.Current.Request.Headers.AllKeys)
+                if (HttpContext.Current != null && IdentitySection.Current.TransformXForwardedFor)
                 {
-                    if (key.ToLowerInvariant() == "x-forwarded-for")
+                    // x-forwarded-for check
+                    foreach (var key in HttpContext.Current.Request.Headers.AllKeys)
                     {
-                        return HttpContext.Current.Request.Headers[key];
+                        if (key.ToLowerInvariant() == "x-forwarded-for")
+                        {
+                            client = HttpContext.Current.Request.Headers[key];
+                            break;
+                        }
                     }
                 }
-                return "Unknown";
+
+                if (client == "::1") client = System.Environment.MachineName;
+                if (string.IsNullOrEmpty(client)) client = "Unknown";
+                return client;
             }
         }  
     }

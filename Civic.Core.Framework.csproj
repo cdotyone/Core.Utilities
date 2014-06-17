@@ -68,6 +68,7 @@
     <Compile Include="..\..\References\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\IdentitySection.cs" />
     <Compile Include="Configuration\CorsDomainElement.cs" />
     <Compile Include="Configuration\CorsSection.cs" />
     <Compile Include="EnumHelper.cs" />
