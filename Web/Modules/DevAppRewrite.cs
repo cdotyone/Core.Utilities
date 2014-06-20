@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web;
+using Civic.Core.Configuration;
 
 namespace Civic.Core.Framework.Web.Modules
 {
@@ -25,7 +26,10 @@ namespace Civic.Core.Framework.Web.Modules
             var context = sender as HttpApplication;
             if (context != null)
             {
+                var appname = ConfigurationFactory.ReadConfigValue<string>("appurlroot","");
                 var path = context.Request.Url.AbsolutePath.ToLowerInvariant();
+
+                if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname)) path = path.Substring(appname.Length);
                    
                 // exclude things that we should not try to rewrite
                 if (path == @"/" || path == "/default.aspx" || path.StartsWith("/api/") || path.StartsWith("/app/") || path == "/Logon.aspx")
