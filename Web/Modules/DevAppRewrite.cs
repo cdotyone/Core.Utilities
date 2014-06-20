@@ -42,7 +42,7 @@ namespace Civic.Core.Framework.Web.Modules
                 var filepath = context.Server.MapPath("~" + path);
 
                 if (File.Exists(filepath))
-                    context.Context.RewritePath(path);
+                    context.Context.RewritePath(appname + path);
             }
         }
 
