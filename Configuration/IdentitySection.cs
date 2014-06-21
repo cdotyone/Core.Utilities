@@ -30,7 +30,7 @@ namespace Civic.Core.Framework.Configuration
 				if (_section != null) return _section;
 
                 _section = ConfigurationFactory.ReadConfigSection<IdentitySection>(IDENTITY_CONFIG_SECTION) ??
-                           ConfigurationFactory.ReadConfigSection<IdentitySection>("EmbeddedResource", IDENTITY_CONFIG_SECTION);
+                           new IdentitySection();
 	            
 				return _section;
             }
