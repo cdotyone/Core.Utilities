@@ -16,6 +16,20 @@ namespace Civic.Core.Framework.Security
         }
         // ReSharper restore ConditionIsAlwaysTrueOrFalse
 
+        public static string UsernameOnly
+        {
+            get
+            {
+                var username = Username;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    var parts = username.Split('\\');
+                    return parts[parts.Length - 1];
+                }
+                return "Unknown";
+            }
+        }
+
         public static string ClientMachine
         {
             get
