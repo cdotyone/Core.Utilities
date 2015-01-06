@@ -32,7 +32,7 @@ namespace Civic.Core.Framework.Web.Modules
                 if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname)) path = path.Substring(appname.Length);
                    
                 // exclude things that we should not try to rewrite
-                if (path == @"/" || path == "/default.aspx" || path.StartsWith("/api/") || path.StartsWith("/app/") || path == "/Logon.aspx")
+                if (path == @"/" || path == "/default.aspx" || path.StartsWith("/api/") || path.StartsWith("/app/") || path == "/login.aspx" || path == "/logon.aspx")
                 {
                     return;
                 }
