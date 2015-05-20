@@ -71,6 +71,7 @@
     <Compile Include="Configuration\IdentitySection.cs" />
     <Compile Include="Configuration\CorsDomainElement.cs" />
     <Compile Include="Configuration\CorsSection.cs" />
+    <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Extensions\Strings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
