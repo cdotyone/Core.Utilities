@@ -29,6 +29,12 @@ namespace Civic.Core.Framework.Web.Modules
                 var appname = ConfigurationFactory.ReadConfigValue<string>("appurlroot","");
                 var path = context.Request.Url.AbsolutePath.ToLowerInvariant();
 
+                if (!string.IsNullOrEmpty(appname))
+                {
+                    appname = appname.ToLowerInvariant();
+                    if (!appname.StartsWith("/")) appname = "/" + appname;
+                    if (!appname.EndsWith("/")) appname = appname + "/";
+                }
                 if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname)) path = path.Substring(appname.Length);
                    
                 // exclude things that we should not try to rewrite
@@ -37,6 +43,7 @@ namespace Civic.Core.Framework.Web.Modules
                     return;
                 }
 
+                if (!path.StartsWith("/")) path = "/" + path;
                 // look to see if the file really exists in the app folder instead, if it does then rewrite it.
                 path = (@"/app" + path);
                 var filepath = context.Server.MapPath("~" + path);
