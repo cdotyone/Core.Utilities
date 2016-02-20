@@ -23,7 +23,7 @@ namespace Civic.Core.Framework.Configuration
         /// <summary>
         /// To Return the Current coreCors Section
         /// </summary>
-        internal static DevAppProxySection Current
+        public static DevAppProxySection Current
         {
             get
             {
