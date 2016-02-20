@@ -26,7 +26,7 @@ namespace Civic.Core.Framework.Web.Modules
             var context = sender as HttpApplication;
             if (context != null)
             {
-                var appname = ConfigurationFactory.ReadConfigValue<string>("appurlroot","");
+                var appname = context.Request.ApplicationPath;
                 var path = context.Request.Url.AbsolutePath.ToLowerInvariant();
 
                 if (!string.IsNullOrEmpty(appname))
