@@ -46,7 +46,7 @@ namespace Civic.Core.Framework.Configuration
             set { this["devurl"] = value; }
 		}
 
-        [ConfigurationProperty("devroot", IsRequired = false, DefaultValue = false)]
+        [ConfigurationProperty("devroot", IsRequired = false)]
         public string DevRoot
         {
             get { return (string)this["devroot"]; }
