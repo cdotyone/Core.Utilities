@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI;
 using Civic.Core.Framework.Configuration;
 
 namespace Civic.Core.Framework.Web.Modules
@@ -15,6 +17,7 @@ namespace Civic.Core.Framework.Web.Modules
     /// </summary>
     public class DevAppProxy : IHttpModule
     {
+        private static Mutex _mutex = new Mutex();
         #region IHttpModule Members
 
         public void Dispose()
@@ -45,12 +48,31 @@ namespace Civic.Core.Framework.Web.Modules
                     if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname)) path = path.Substring(appname.Length);
 
                     // exclude things that we should not try to rewrite
-                    if (string.IsNullOrEmpty(path) || path == @"/" || path.EndsWith(".aspx") || path.StartsWith("api/"))
+                    if (string.IsNullOrEmpty(path) || path.EndsWith(@"/") || path.EndsWith(".aspx") || path.StartsWith("api/"))
                     {
                         return;
-                    }                  
+                    }
 
+                    var root = GetAbsolutePath(DevAppProxySection.Current.DevRoot, context.Server.MapPath("~/"));
+
+                    var filePath = root + Path.DirectorySeparatorChar + path.Replace('/',Path.DirectorySeparatorChar);
+
+                    var cnt = 5;
+                    while (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\",@"\.tmp\")) &&  filePath != root && cnt>0)
+                    {
+                        if (path.StartsWith("bower_components")) break;
+                        if (!path.StartsWith("/")) path = "/" + path;
+                        var parts = new List<string>(path.Split('/'));
+                        if (parts.Count > 0 && parts[0] == "") parts.RemoveAt(0);
+                        parts.RemoveAt(0);
+                        path = "/" + string.Join("/", parts);
+
+                        filePath = root + path.Replace('/', Path.DirectorySeparatorChar);
+                        cnt--;
+                    }
+                    if (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\", @"\.tmp\")) && !path.StartsWith("bower_components")) return;
                     if (!path.StartsWith("/")) path = "/" + path;
+
 
                     HttpClient client = new HttpClient();
                     try
@@ -64,12 +86,14 @@ namespace Civic.Core.Framework.Web.Modules
                         {
                             using (MemoryStream memStream = new MemoryStream())
                             {
+                                _mutex.WaitOne(15000);
                                 Task task = response.Content.ReadAsStreamAsync().ContinueWith(t =>
                                 {
                                     CopyStream(t.Result, memStream);
                                 });
 
                                 task.Wait();
+                                _mutex.ReleaseMutex();
 
                                 context.Response.Clear();
                                 foreach (var header in response.Content.Headers)
@@ -105,6 +129,27 @@ namespace Civic.Core.Framework.Web.Modules
             {
                 output.Write(buffer, 0, len);
             }
+        }
+
+        public static String GetAbsolutePath(String relativePath, String basePath)
+        {
+            if (relativePath == null)
+                return null;
+            if (basePath == null)
+                basePath = Path.GetFullPath("."); // quick way of getting current working directory
+            else
+                basePath = GetAbsolutePath(basePath, null); // to be REALLY sure ;)
+                                                            // specific for windows paths starting on \ - they need the drive added to them.
+                                                            // I constructed this piece like this for possible Mono support.
+            if (!Path.IsPathRooted(relativePath) || "\\".Equals(Path.GetPathRoot(relativePath)))
+            {
+                if (relativePath.StartsWith(Path.DirectorySeparatorChar.ToString()))
+                    return Path.GetFullPath(Path.Combine(Path.GetPathRoot(basePath), relativePath.TrimStart(Path.DirectorySeparatorChar)));
+                else
+                    return Path.GetFullPath(Path.Combine(basePath, relativePath));
+            }
+            else
+                return Path.GetFullPath(relativePath); // resolves any internal "..\" to get the true full path.
         }
         #endregion
     }
