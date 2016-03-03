@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Web;
-using Civic.Core.Configuration;
 
 namespace Civic.Core.Framework.Web.Modules
 {
@@ -54,5 +53,24 @@ namespace Civic.Core.Framework.Web.Modules
         }
 
         #endregion
+
+        public static String GetAbsolutePath(String relativePath, String basePath)
+        {
+            if (relativePath == null)
+                return null;
+            if (basePath == null)
+                basePath = Path.GetFullPath("."); // quick way of getting current working directory
+            else
+                basePath = GetAbsolutePath(basePath, null); // to be REALLY sure ;)
+                                                            // specific for windows paths starting on \ - they need the drive added to them.
+                                                            // I constructed this piece like this for possible Mono support.
+            if (!Path.IsPathRooted(relativePath) || "\\".Equals(Path.GetPathRoot(relativePath)))
+            {
+                if (relativePath.StartsWith(Path.DirectorySeparatorChar.ToString()))
+                    return Path.GetFullPath(Path.Combine(Path.GetPathRoot(basePath), relativePath.TrimStart(Path.DirectorySeparatorChar)));
+                return Path.GetFullPath(Path.Combine(basePath, relativePath));
+            }
+            return Path.GetFullPath(relativePath); // resolves any internal "..\" to get the true full path.
+        }
     }
 }
