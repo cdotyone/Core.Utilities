@@ -27,7 +27,7 @@ namespace Civic.Core.Framework.Web
             return Path.GetFullPath(relativePath); // resolves any internal "..\" to get the true full path.
         }
 
-        private static string GetPageTemplate(HttpRequest request, string appname, bool development)
+        public static string GetPageTemplate(HttpRequest request, string appname, bool development)
         {
             string page;
 
