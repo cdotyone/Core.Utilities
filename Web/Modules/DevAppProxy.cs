@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.UI;
 using Civic.Core.Framework.Configuration;
 
 namespace Civic.Core.Framework.Web.Modules
@@ -31,6 +30,7 @@ namespace Civic.Core.Framework.Web.Modules
 
         private void request(object sender, EventArgs e)
         {
+            var config = DevAppProxySection.Current;
             var context = sender as HttpApplication;
             if (context != null)
             {
@@ -53,19 +53,33 @@ namespace Civic.Core.Framework.Web.Modules
                         return;
                     }
 
-                    var root = GetAbsolutePath(DevAppProxySection.Current.DevRoot, context.Server.MapPath("~/"));
+                    if (path.StartsWith("/")) path = path.Substring(0);
+                    var dirParts = new List<string>(path.Split('/'));
+
+                    var angularName = dirParts[0];
+                    var projectConfig = config.Paths.Get(angularName);
+
+                    var stripDirList = new List<string>(projectConfig.StripPaths.Split(','));
+                    stripDirList.Insert(0, angularName);
+                    foreach (var dirname in stripDirList)
+                    {
+                        if (path.StartsWith(angularName + "/" + dirname, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            dirParts.RemoveAt(0);
+                            path = string.Join("/", dirParts);
+                            break;
+                        }
+                    }
+
+                    var root = GetAbsolutePath(projectConfig.DevRoot, context.Server.MapPath("~/"));
 
                     var filePath = root + Path.DirectorySeparatorChar + path.Replace('/',Path.DirectorySeparatorChar);
 
                     var cnt = 5;
                     while (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\",@"\.tmp\")) &&  filePath != root && cnt>0)
                     {
-                        if (path.StartsWith("bower_components")) break;
-                        if (!path.StartsWith("/")) path = "/" + path;
-                        var parts = new List<string>(path.Split('/'));
-                        if (parts.Count > 0 && parts[0] == "") parts.RemoveAt(0);
-                        parts.RemoveAt(0);
-                        path = "/" + string.Join("/", parts);
+                        if (path.StartsWith("bower_components", StringComparison.CurrentCultureIgnoreCase)) break;
+                        path = "/" + string.Join("/", dirParts);
 
                         filePath = root + path.Replace('/', Path.DirectorySeparatorChar);
                         cnt--;
@@ -77,7 +91,7 @@ namespace Civic.Core.Framework.Web.Modules
                     HttpClient client = new HttpClient();
                     try
                     {
-                        var url = DevAppProxySection.Current.DevUrl.TrimEnd('/');
+                        var url = projectConfig.DevUrl.TrimEnd('/');
                     
                         Trace.TraceInformation("Request To:{0}", context.Request.Url);
 

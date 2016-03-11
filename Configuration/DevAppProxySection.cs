@@ -36,21 +36,14 @@ namespace Civic.Core.Framework.Configuration
             }
         }
 
-		/// <summary>
-		/// True if IdentityHelp should translate the x-forwarded-for header to get client ip
-		/// </summary>
-		[ConfigurationProperty("devurl", IsRequired = false)]
-		public string DevUrl
-		{
-            get { return (string)this["devurl"]; }
-            set { this["devurl"] = value; }
-		}
-
-        [ConfigurationProperty("devroot", IsRequired = false)]
-        public string DevRoot
+        /// <summary>
+        /// List of pages and roots
+        /// </summary>
+        [ConfigurationProperty("", IsRequired = false, IsDefaultCollection = true)]
+        public NamedElementCollection<DevAppElement> Paths
         {
-            get { return (string)this["devroot"]; }
-            set { this["devroot"] = value; }
+            get { return (NamedElementCollection<DevAppElement>)this[""]; }
+            set { this[""] = value; }
         }
     }
 }

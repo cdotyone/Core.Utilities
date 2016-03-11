@@ -72,6 +72,7 @@
     <Compile Include="..\..\References\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Configuration\DevAppElement.cs" />
     <Compile Include="Configuration\DevAppProxySection.cs" />
     <Compile Include="Configuration\IdentitySection.cs" />
     <Compile Include="Configuration\CorsDomainElement.cs" />
