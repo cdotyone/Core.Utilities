@@ -89,6 +89,7 @@
     <Compile Include="Web\Modules\Cors.cs" />
     <Compile Include="Web\Modules\DevAppProxy.cs" />
     <Compile Include="Web\Modules\DevAppRewrite.cs" />
+    <Compile Include="Web\TemplateHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\References\civic.snk">
