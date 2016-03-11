@@ -50,8 +50,11 @@ namespace Civic.Core.Framework.Web
                         var siteConfig = DevAppProxySection.Current.Paths.Get(appname);
                         if (siteConfig != null)
                         {
-                            path2 = GetAbsolutePath(siteConfig.DevRoot + Path.DirectorySeparatorChar + "index.html",
-                                path2);
+                            var path3 = GetAbsolutePath(siteConfig.DevRoot + Path.DirectorySeparatorChar + "index.html", path2);
+                            var path4 = GetAbsolutePath(siteConfig.DevRoot + Path.DirectorySeparatorChar + appname + ".html", path2);
+
+                            if (File.Exists(path3)) path2 = path3;
+                            if (File.Exists(path4)) path2 = path4;
                         }
 
                         if (siteConfig != null && File.Exists(path2))
