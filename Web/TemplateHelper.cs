@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Web;
+using Civic.Core.Caching;
 using Civic.Core.Framework.Configuration;
 
 namespace Civic.Core.Framework.Web
@@ -27,50 +28,61 @@ namespace Civic.Core.Framework.Web
             return Path.GetFullPath(relativePath); // resolves any internal "..\" to get the true full path.
         }
 
-        public static string GetPageTemplate(HttpRequest request, string appname, bool development)
+        public static string GetPageTemplate(HttpRequest request, string appname, bool development, string cacheScope)
         {
-            string page;
+            string cacheKey = appname.ToUpper() + "_TEMPLATEPAGE";
 
-            var path1 = request.MapPath("~/" + appname + ".thtml");
-            if (File.Exists(path1))
+            var page = CacheManager.ReadCache(cacheScope, cacheKey, "");
+
+            if (string.IsNullOrEmpty(page) || development)
             {
-                page = File.ReadAllText(path1);
-            }
-            else
-            {
-                if (development)
+
+                var path1 = request.MapPath("~/" + appname + ".thtml");
+                if (File.Exists(path1))
                 {
-                    var path2 = path1.Replace(appname + ".thtml", "");
-                    var siteConfig = DevAppProxySection.Current.Paths.Get(appname);
-                    if (siteConfig != null)
+                    page = File.ReadAllText(path1);
+                }
+                else
+                {
+                    if (development)
                     {
-                        path2 = GetAbsolutePath(siteConfig.DevRoot + Path.DirectorySeparatorChar + "index.html", path2);
-                    }
-
-                    if (siteConfig != null && File.Exists(path2))
-                    {
-                        page = File.ReadAllText(path2);
-
-                        if (!string.IsNullOrEmpty(siteConfig.ReloadPort))
+                        var path2 = path1.Replace(appname + ".thtml", "");
+                        var siteConfig = DevAppProxySection.Current.Paths.Get(appname);
+                        if (siteConfig != null)
                         {
-                            var autoreload =
-                                "<script type = \"text/javascript\">document.write('<script src=\"' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':" +
-                                siteConfig.ReloadPort + 
-                                "/livereload.js?snipver=1\" type=\"text/javascript\"><\\/script>')</script>";
-                            page = page.Replace("</body>", autoreload + "</body>");
+                            path2 = GetAbsolutePath(siteConfig.DevRoot + Path.DirectorySeparatorChar + "index.html",
+                                path2);
+                        }
+
+                        if (siteConfig != null && File.Exists(path2))
+                        {
+                            page = File.ReadAllText(path2);
+
+                            if (!string.IsNullOrEmpty(siteConfig.ReloadPort))
+                            {
+                                var autoreload =
+                                    "<script type = \"text/javascript\">document.write('<script src=\"' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':" +
+                                    siteConfig.ReloadPort +
+                                    "/livereload.js?snipver=1\" type=\"text/javascript\"><\\/script>')</script>";
+                                page = page.Replace("</body>", autoreload + "</body>");
+                            }
+                        }
+                        else
+                        {
+                            throw new ConfigurationErrorsException(
+                                string.Format("unable to locate {0}.(t)html, looked in {1} and {2}", appname, path1,
+                                    path2));
                         }
                     }
                     else
                     {
                         throw new ConfigurationErrorsException(
-                            string.Format("unable to locate {0}.(t)html, looked in {1} and {2}", appname, path1, path2));
+                            string.Format("unable to locate {0}.(t)html, looked in {1}", appname,
+                                path1));
                     }
                 }
-                else
-                {
-                    throw new ConfigurationErrorsException(string.Format("unable to locate {0}.(t)html, looked in {1}", appname,
-                        path1));
-                }
+
+                if (!development) CacheManager.WriteCache("PLL_TOYS", cacheKey, page);
             }
 
             return page;
