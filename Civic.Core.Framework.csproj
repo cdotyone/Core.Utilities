@@ -101,6 +101,10 @@
     <None Include="Nuget\pack.bat" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Civic.Core.Caching\Civic.Core.Caching.csproj">
+      <Project>{b8050087-2b82-4a11-af63-12222991905f}</Project>
+      <Name>Civic.Core.Caching</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Civic.Core.Configuration\Civic.Core.Configuration.csproj">
       <Project>{4243bf37-b025-4ad1-874e-8b118869c5cf}</Project>
       <Name>Civic.Core.Configuration</Name>
