@@ -36,6 +36,7 @@ namespace Civic.Core.Framework.Web.Modules
             {
                 if (context.Request.ApplicationPath != null)
                 {
+                    // determine the application name and remove it from the request path name
                     var appname = context.Request.ApplicationPath.ToLowerInvariant();
                     var path = context.Request.Url.AbsolutePath.ToLowerInvariant();
 
@@ -47,18 +48,24 @@ namespace Civic.Core.Framework.Web.Modules
                     }
                     if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname)) path = path.Substring(appname.Length);
 
-                    // exclude things that we should not try to rewrite
-                    if (string.IsNullOrEmpty(path) || path.EndsWith(@"/") || path.EndsWith(".aspx") || path.StartsWith("api/"))
+                    // are we supposed to process this page
+                    if (string.IsNullOrEmpty(path) || path.EndsWith(".aspx")) return;
+
+                    // normallize path
+                    path = path.TrimEnd('/');
+                    var dirParts = new List<string>(path.Split('/'));
+
+                    // determine if this request has an assiciated project configuration
+                    var angularName = dirParts[0];
+                    var projectConfig = config.Paths.Get(angularName);
+
+                    // exclude things that we should not try to rewrite, one last check to see if we need to process this request
+                    if (dirParts.Count==1 || angularName=="api" || projectConfig == null)
                     {
                         return;
                     }
 
-                    if (path.StartsWith("/")) path = path.Substring(0);
-                    var dirParts = new List<string>(path.Split('/'));
-
-                    var angularName = dirParts[0];
-                    var projectConfig = config.Paths.Get(angularName);
-
+                    // remove lead folders we don't need when request from dev grunt web server
                     var stripDirList = new List<string>(projectConfig.StripPaths.Split(','));
                     stripDirList.Insert(0, angularName);
                     foreach (var dirname in stripDirList)
@@ -71,23 +78,27 @@ namespace Civic.Core.Framework.Web.Modules
                         }
                     }
 
-                    var root = GetAbsolutePath(projectConfig.DevRoot, context.Server.MapPath("~/"));
-
+                    var root = TemplateHelper.GetAbsolutePath(projectConfig.DevRoot, context.Server.MapPath("~/"));
                     var filePath = root + Path.DirectorySeparatorChar + path.Replace('/',Path.DirectorySeparatorChar);
 
+                    // try to find the physical file on the file system, removing the lead directory until it is found, or we determine we can not find it
                     var cnt = 5;
-                    while (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\",@"\.tmp\")) &&  filePath != root && cnt>0)
+                    while (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\", @"\.tmp\")) && filePath != root && cnt > 0 && dirParts.Count>0)
                     {
                         if (path.StartsWith("bower_components", StringComparison.CurrentCultureIgnoreCase)) break;
+                        dirParts.RemoveAt(0);
                         path = "/" + string.Join("/", dirParts);
 
                         filePath = root + path.Replace('/', Path.DirectorySeparatorChar);
                         cnt--;
                     }
+
+                    // see if we could find it, if not bounce out
                     if (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\", @"\.tmp\")) && !path.StartsWith("bower_components")) return;
                     if (!path.StartsWith("/")) path = "/" + path;
 
 
+                    // request the page from the grunt server
                     HttpClient client = new HttpClient();
                     try
                     {
@@ -145,26 +156,6 @@ namespace Civic.Core.Framework.Web.Modules
             }
         }
 
-        public static String GetAbsolutePath(String relativePath, String basePath)
-        {
-            if (relativePath == null)
-                return null;
-            if (basePath == null)
-                basePath = Path.GetFullPath("."); // quick way of getting current working directory
-            else
-                basePath = GetAbsolutePath(basePath, null); // to be REALLY sure ;)
-                                                            // specific for windows paths starting on \ - they need the drive added to them.
-                                                            // I constructed this piece like this for possible Mono support.
-            if (!Path.IsPathRooted(relativePath) || "\\".Equals(Path.GetPathRoot(relativePath)))
-            {
-                if (relativePath.StartsWith(Path.DirectorySeparatorChar.ToString()))
-                    return Path.GetFullPath(Path.Combine(Path.GetPathRoot(basePath), relativePath.TrimStart(Path.DirectorySeparatorChar)));
-                else
-                    return Path.GetFullPath(Path.Combine(basePath, relativePath));
-            }
-            else
-                return Path.GetFullPath(relativePath); // resolves any internal "..\" to get the true full path.
-        }
         #endregion
     }
 
