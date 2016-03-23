@@ -79,9 +79,18 @@ namespace Civic.Core.Framework.Web
                     }
                     else
                     {
-                        throw new ConfigurationErrorsException(
-                            string.Format("unable to locate {0}.(t)html, looked in {1}", appname,
-                                path1));
+                        path1 = request.MapPath("~/index.thtml");
+                        if (File.Exists(path1))
+                        {
+                            page = File.ReadAllText(path1);
+                        }
+                        else
+                        {
+
+                            throw new ConfigurationErrorsException(
+                                string.Format("unable to locate {0}.thtml, index.thtml, looked in {1}", appname,
+                                    path1));
+                        }
                     }
                 }
 
