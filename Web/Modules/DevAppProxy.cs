@@ -57,7 +57,7 @@ namespace Civic.Core.Framework.Web.Modules
 
                     // determine if this request has an assiciated project configuration
                     var angularName = dirParts[0];
-                    var projectConfig = config.Paths.Get(angularName);
+                    var projectConfig = config.Paths.Get(angularName) ?? config.Paths.Get(0);
 
                     // exclude things that we should not try to rewrite, one last check to see if we need to process this request
                     if (dirParts.Count==1 || angularName=="api" || projectConfig == null)
