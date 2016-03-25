@@ -98,6 +98,9 @@ namespace Civic.Core.Framework.Web.Modules
                     if (!path.StartsWith("/")) path = "/" + path;
 
 
+                    context.Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+                    context.Response.Cache.SetNoStore();
+
                     // request the page from the grunt server
                     HttpClient client = new HttpClient();
                     try
