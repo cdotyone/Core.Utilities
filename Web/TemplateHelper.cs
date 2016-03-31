@@ -3,7 +3,8 @@ using System.Configuration;
 using System.IO;
 using System.Web;
 using Civic.Core.Caching;
-using Civic.Core.Framework.Configuration;
+    using Civic.Core.Configuration;
+    using Civic.Core.Framework.Configuration;
 
 namespace Civic.Core.Framework.Web
 {
@@ -28,8 +29,9 @@ namespace Civic.Core.Framework.Web
             return Path.GetFullPath(relativePath); // resolves any internal "..\" to get the true full path.
         }
 
-        public static string GetPageTemplate(HttpRequest request, string appname, bool development, string cacheScope)
+        public static string GetPageTemplate(HttpRequest request, string appname, string cacheScope)
         {
+            var development = CivicSection.Current.DevelopmentMode;
             string cacheKey = appname.ToUpper() + "_TEMPLATEPAGE";
 
             var page = CacheManager.ReadCache(cacheScope, cacheKey, "");
