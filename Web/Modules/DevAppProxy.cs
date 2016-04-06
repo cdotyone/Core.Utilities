@@ -38,7 +38,7 @@ namespace Civic.Core.Framework.Web.Modules
                 {
                     // determine the application name and remove it from the request path name
                     var appname = context.Request.ApplicationPath.ToLowerInvariant();
-                    var path = context.Request.Url.AbsolutePath.ToLowerInvariant();
+                    var path = context.Request.Url.AbsolutePath;
 
                     if (!string.IsNullOrEmpty(appname))
                     {
@@ -46,7 +46,7 @@ namespace Civic.Core.Framework.Web.Modules
                         if (!appname.StartsWith("/")) appname = "/" + appname;
                         if (!appname.EndsWith("/")) appname = appname + "/";
                     }
-                    if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname)) path = path.Substring(appname.Length);
+                    if (!string.IsNullOrEmpty(appname) && path.StartsWith(appname,StringComparison.InvariantCultureIgnoreCase)) path = path.Substring(appname.Length);
 
                     // are we supposed to process this page
                     if (string.IsNullOrEmpty(path) || path.EndsWith(".aspx")) return;
@@ -65,18 +65,18 @@ namespace Civic.Core.Framework.Web.Modules
                         return;
                     }
 
-                    // remove lead folders we don't need when request from dev grunt web server
-                    var stripDirList = new List<string>(projectConfig.StripPaths.Split(','));
-                    stripDirList.Insert(0, angularName);
-                    foreach (var dirname in stripDirList)
-                    {
-                        if (path.StartsWith(angularName + "/" + dirname, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            dirParts.RemoveAt(0);
-                            path = string.Join("/", dirParts);
-                            break;
-                        }
-                    }
+                    //// remove lead folders we don't need when request from dev grunt web server
+                    //var stripDirList = new List<string>(projectConfig.StripPaths.Split(','));
+                    //stripDirList.Insert(0, angularName);
+                    //foreach (var dirname in stripDirList)
+                    //{
+                    //    if (path.StartsWith(angularName + "/" + dirname, StringComparison.InvariantCultureIgnoreCase))
+                    //    {
+                    //        dirParts.RemoveAt(0);
+                    //        path = string.Join("/", dirParts);
+                    //        break;
+                    //    }
+                    //}
 
                     var root = TemplateHelper.GetAbsolutePath(projectConfig.DevRoot, context.Server.MapPath("~/"));
                     var filePath = root + Path.DirectorySeparatorChar + path.Replace('/',Path.DirectorySeparatorChar);
