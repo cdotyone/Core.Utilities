@@ -85,6 +85,7 @@ namespace Civic.Core.Framework.Web.Modules
                     var cnt = 5;
                     while (!File.Exists(filePath) && !File.Exists(filePath.Replace(@"\app\", @"\.tmp\")) && filePath != root && cnt > 0 && dirParts.Count>0)
                     {
+                        if (path.StartsWith("/")) path = path.Substring(1);
                         if (path.StartsWith("bower_components", StringComparison.CurrentCultureIgnoreCase)) break;
                         dirParts.RemoveAt(0);
                         path = "/" + string.Join("/", dirParts);
