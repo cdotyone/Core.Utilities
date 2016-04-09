@@ -16,6 +16,8 @@ namespace Civic.Core.Framework.Configuration
             Children = element.Children;
             Attributes = element.Attributes;
             Name = element.Name;
+
+            _transformXForwardedFor = Attributes.ContainsKey("xforward") && bool.Parse(Attributes["xforward"]);
         }
 
         /// <summary>
@@ -33,8 +35,11 @@ namespace Civic.Core.Framework.Configuration
         {
             get
             {
+                if (_current != null) return _current;
+
                 if (_coreConfig == null) _coreConfig = CivicSection.Current;
                 _current = new IdentityConfig(_coreConfig.Children.ContainsKey(SectionName) ? _coreConfig.Children[SectionName] : null);
+
                 return _current;
             }
         }
@@ -46,8 +51,12 @@ namespace Civic.Core.Framework.Configuration
         /// </summary>
 		public bool TransformXForwardedFor
 		{
-            get { return Attributes.ContainsKey("xforward") && bool.Parse(Attributes["xforward"]); }
-            set { Attributes["xforward"] = value.ToString(); }
+            get { return _transformXForwardedFor; }
+            set {
+                Attributes["xforward"] = value.ToString();
+                _transformXForwardedFor = value;
+            }
 		}
+        private bool _transformXForwardedFor;
     }
 }

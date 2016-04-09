@@ -34,6 +34,8 @@ namespace Civic.Core.Framework.Configuration
         {
             get
             {
+                if (_current != null) return _current;
+
                 if (_coreConfig == null) _coreConfig = CivicSection.Current;
                 _current = new DevlopmentAppConfig(_coreConfig.Children.ContainsKey(SectionName) ? _coreConfig.Children[SectionName] : null);
                 return _current;
