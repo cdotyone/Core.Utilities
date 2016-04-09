@@ -49,7 +49,8 @@ namespace Civic.Core.Framework.Web
                     if (development)
                     {
                         var path2 = path1.Replace(appname + ".thtml", "");
-                        var siteConfig = DevAppProxySection.Current.Paths.Get(appname);
+                        var config = DevlopmentAppConfig.Current;
+                        var siteConfig = config.Paths.ContainsKey(appname) ? config.Paths[appname] : null;
                         if (siteConfig != null)
                         {
                             var path3 = GetAbsolutePath(siteConfig.DevRoot + Path.DirectorySeparatorChar + "index.html", path2);

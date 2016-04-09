@@ -30,7 +30,7 @@ namespace Civic.Core.Framework.Web.Modules
 
         private void request(object sender, EventArgs e)
         {
-            var config = DevAppProxySection.Current;
+            var config = DevlopmentAppConfig.Current;
             var context = sender as HttpApplication;
             if (context != null)
             {
@@ -57,7 +57,7 @@ namespace Civic.Core.Framework.Web.Modules
 
                     // determine if this request has an assiciated project configuration
                     var angularName = dirParts[0];
-                    var projectConfig = config.Paths.Get(angularName) ?? config.Paths.Get(0);
+                    var projectConfig = config.Paths.ContainsKey(angularName) ? config.Paths[angularName] : null;
 
                     // exclude things that we should not try to rewrite, one last check to see if we need to process this request
                     if (dirParts.Count==1 || angularName=="api" || projectConfig == null)
@@ -99,7 +99,7 @@ namespace Civic.Core.Framework.Web.Modules
                     if (!path.StartsWith("/")) path = "/" + path;
 
 
-                    context.Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+                    context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     context.Response.Cache.SetNoStore();
 
                     // request the page from the grunt server

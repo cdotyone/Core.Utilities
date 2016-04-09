@@ -1,16 +1,22 @@
-﻿using System.Configuration;
-using Civic.Core.Configuration;
+﻿using Civic.Core.Configuration;
 
 namespace Civic.Core.Framework.Configuration
 {
-    public class IdentitySection : SerializableConfigurationSection
+    public class IdentityConfig : NamedConfigurationElement
     {
         #region Members
 
-        private const string IDENTITY_CONFIG_SECTION = "coreIdentity";
-        private static IdentitySection _section;
+        private const string IDENTITY_CONFIG_SECTION = "identity";
 
         #endregion
+
+        public IdentityConfig(INamedElement element)
+        {
+            if (element == null) element = new NamedConfigurationElement() { Name = SectionName };
+            Children = element.Children;
+            Attributes = element.Attributes;
+            Name = element.Name;
+        }
 
         /// <summary>
         /// Property to return the Section Name 
@@ -21,29 +27,27 @@ namespace Civic.Core.Framework.Configuration
         }
 
         /// <summary>
-        /// To Return the Current coreCors Section
+        /// To Return the Current iddenty configuration Section
         /// </summary>
-        internal static IdentitySection Current
+        internal static IdentityConfig Current
         {
             get
             {
-				if (_section != null) return _section;
-
-                _section = ConfigurationFactory.ReadConfigSection<IdentitySection>(IDENTITY_CONFIG_SECTION) ??
-                           new IdentitySection();
-	            
-				return _section;
+                if (_coreConfig == null) _coreConfig = CivicSection.Current;
+                _current = new IdentityConfig(_coreConfig.Children.ContainsKey(SectionName) ? _coreConfig.Children[SectionName] : null);
+                return _current;
             }
         }
+        private static CivicSection _coreConfig;
+        private static IdentityConfig _current;
 
-		/// <summary>
-		/// True if IdentityHelp should translate the x-forwarded-for header to get client ip
-		/// </summary>
-		[ConfigurationProperty("xforward", IsRequired = false, DefaultValue = false)]
+        /// <summary>
+        /// True if IdentityHelp should translate the x-forwarded-for header to get client ip
+        /// </summary>
 		public bool TransformXForwardedFor
 		{
-            get { return (bool)this["xforward"]; }
-            set { this["xforward"] = value; }
+            get { return Attributes.ContainsKey("xforward") && bool.Parse(Attributes["xforward"]); }
+            set { Attributes["xforward"] = value.ToString(); }
 		}
     }
 }

@@ -76,10 +76,9 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Configuration\DevAppElement.cs" />
-    <Compile Include="Configuration\DevAppProxySection.cs" />
+    <Compile Include="Configuration\DevlopmentAppConfig.cs" />
     <Compile Include="Configuration\IdentitySection.cs" />
-    <Compile Include="Configuration\CorsDomainElement.cs" />
-    <Compile Include="Configuration\CorsSection.cs" />
+    <Compile Include="Configuration\CorsConfig.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Extensions\Strings.cs" />

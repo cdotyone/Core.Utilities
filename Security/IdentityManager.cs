@@ -42,7 +42,7 @@ namespace Civic.Core.Framework.Security
                 else if (!string.IsNullOrEmpty(HttpContext.Current.Request.UserHostAddress))
                     client = HttpContext.Current.Request.UserHostAddress;
 
-                if (HttpContext.Current != null && IdentitySection.Current.TransformXForwardedFor)
+                if (HttpContext.Current != null && IdentityConfig.Current.TransformXForwardedFor)
                 {
                     // x-forwarded-for check
                     foreach (var key in HttpContext.Current.Request.Headers.AllKeys)

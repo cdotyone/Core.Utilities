@@ -26,7 +26,7 @@ namespace Civic.Core.Framework.Web.Modules
 
             if (refereerUri != null)
             {
-                var config = CorsSection.Current;
+                var config = CorsConfig.Current;
 
                 // does the configuration require the HTTP Method = OPTIONS
                 if (config.RequireOptions && string.Compare("OPTIONS", context.Request.HttpMethod, StringComparison.InvariantCultureIgnoreCase) != 0) return false;
