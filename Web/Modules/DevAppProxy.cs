@@ -59,6 +59,12 @@ namespace Civic.Core.Framework.Web.Modules
                     var angularName = dirParts[0];
                     var projectConfig = config.Paths.ContainsKey(angularName) ? config.Paths[angularName] : null;
 
+                    if (projectConfig == null)
+                    {
+                        angularName = config.Paths.Keys.FirstOrDefault();
+                        projectConfig = config.Paths.ContainsKey(angularName) ? config.Paths[angularName] : null;
+                    }
+
                     // exclude things that we should not try to rewrite, one last check to see if we need to process this request
                     if (dirParts.Count==1 || angularName=="api" || projectConfig == null)
                     {
