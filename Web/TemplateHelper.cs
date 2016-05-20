@@ -34,7 +34,10 @@ namespace Civic.Core.Framework.Web
             var development = CivicSection.Current.DevelopmentMode;
             string cacheKey = appname.ToUpper() + "_TEMPLATEPAGE";
 
-            var page = CacheManager.ReadCache(cacheScope, cacheKey, "");
+            var page = string.Empty;
+
+            if(!string.IsNullOrEmpty(cacheScope))
+                CacheManager.ReadCache(cacheScope, cacheKey, "");
 
             if (string.IsNullOrEmpty(page) || development)
             {
@@ -97,7 +100,7 @@ namespace Civic.Core.Framework.Web
                     }
                 }
 
-                if (!development) CacheManager.WriteCache("PLL_TOYS", cacheKey, page);
+                if (!development && !string.IsNullOrEmpty(cacheScope)) CacheManager.WriteCache(cacheScope, cacheKey, page);
             }
 
             return page;
