@@ -140,7 +140,10 @@ namespace Civic.Core.Framework.Web.Modules
                                 }
 
                                 context.Response.BinaryWrite(memStream.GetBuffer());
-                                context.Response.End();
+                                context.Response.Flush();
+                                context.Response.StatusCode = 200;
+                                context.Response.StatusDescription = "OK";
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
                             }
                         }
                     }
