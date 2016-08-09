@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -108,38 +109,73 @@ namespace Civic.Core.Framework.Web.Modules
                     context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     context.Response.Cache.SetNoStore();
 
-                    // request the page from the grunt server
-                    HttpClient client = new HttpClient();
                     try
                     {
-                        var url = projectConfig.DevUrl.TrimEnd('/');
-                    
-                        Trace.TraceInformation("Request To:{0}", context.Request.Url);
-
-                        var response = client.GetAsync(url + path).Result;
-                        if (response != null)
+                        var done = false;
+                        using (MemoryStream memStream = new MemoryStream())
                         {
-                            using (MemoryStream memStream = new MemoryStream())
+
+                            if (File.Exists(filePath))
                             {
-                                _mutex.WaitOne(15000);
-                                Task task = response.Content.ReadAsStreamAsync().ContinueWith(t =>
+                                context.Response.WriteFile(filePath);
+                                context.Response.ContentType = MimeMapping.GetMimeMapping(filePath);
+                                done = true;
+                            }
+                            else
+                            {
+                                if (File.Exists(filePath.Replace(@"\app\", @"\.tmp\")))
                                 {
-                                    CopyStream(t.Result, memStream);
-                                });
+                                    context.Response.WriteFile(filePath.Replace(@"\app\", @"\.tmp\"));
+                                    context.Response.ContentType = MimeMapping.GetMimeMapping(filePath.Replace(@"\app\", @"\.tmp\"));
 
-                                task.Wait();
-                                _mutex.ReleaseMutex();
-
-                                context.Response.Clear();
-                                foreach (var header in response.Content.Headers)
+                                    done = true;
+                                }
+                                else
                                 {
-                                    if (header.Value != null)
+                                    if (File.Exists(filePath.Replace(@"\app\", @"\")))
                                     {
-                                        context.Response.AddHeader(header.Key, header.Value.FirstOrDefault());
+                                        context.Response.WriteFile(filePath.Replace(@"\app\", @"\"));
+                                        context.Response.ContentType = MimeMapping.GetMimeMapping(filePath.Replace(@"\app\", @"\"));
+                                        done = true;
                                     }
                                 }
+                            }
 
-                                context.Response.BinaryWrite(memStream.GetBuffer());
+                            if (!done)
+                            {
+                                HttpClient client = new HttpClient();
+                                var url = projectConfig.DevUrl.TrimEnd('/');
+
+                                Trace.TraceInformation("Request To:{0}", context.Request.Url);
+
+                                var response = client.GetAsync(url + path).Result;
+                                if (response != null)
+                                {
+                                    _mutex.WaitOne(15000);
+                                    Task task = response.Content.ReadAsStreamAsync().ContinueWith(t =>
+                                    {
+                                        CopyStream(t.Result, memStream);
+                                    });
+
+                                    task.Wait();
+                                    _mutex.ReleaseMutex();
+
+                                    context.Response.Clear();
+                                    foreach (var header in response.Content.Headers)
+                                    {
+                                        if (header.Value != null)
+                                        {
+                                            context.Response.AddHeader(header.Key, header.Value.FirstOrDefault());
+                                        }
+                                    }
+
+                                    context.Response.BinaryWrite(memStream.GetBuffer());
+                                    done = true;
+                                }
+                            }
+
+                            if (done)
+                            {
                                 context.Response.Flush();
                                 context.Response.StatusCode = 200;
                                 context.Response.StatusDescription = "OK";
@@ -147,7 +183,7 @@ namespace Civic.Core.Framework.Web.Modules
                             }
                         }
                     }
-                    catch (ThreadAbortException)
+                    catch(ThreadAbortException)
                     {
                         // do nothing
                     }
