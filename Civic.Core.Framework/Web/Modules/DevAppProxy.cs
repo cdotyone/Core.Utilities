@@ -67,7 +67,7 @@ namespace Civic.Core.Framework.Web.Modules
                     }
 
                     // exclude things that we should not try to rewrite, one last check to see if we need to process this request
-                    if (dirParts.Count==1 || angularName=="api" || projectConfig == null)
+                    if ((dirParts.Count==1 && !path.EndsWith(".html") && !path.EndsWith(".js") && !path.EndsWith(".ico")) || angularName=="api" || projectConfig == null)
                     {
                         return;
                     }
