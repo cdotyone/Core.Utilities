@@ -10,7 +10,7 @@ namespace Civic.Core.Framework.Security
         {
             get
             {
-                if (HttpContext.Current == null || HttpContext.Current.User==null || HttpContext.Current.User.Identity==null || !HttpContext.Current.User.Identity.IsAuthenticated) return "Unknown";
+                if (HttpContext.Current == null || HttpContext.Current.User==null || HttpContext.Current.User.Identity==null || !HttpContext.Current.User.Identity.IsAuthenticated) return "UNK";
                 return HttpContext.Current.User.Identity.Name;
             }
         }
@@ -26,7 +26,7 @@ namespace Civic.Core.Framework.Security
                     var parts = username.Split('\\');
                     return parts[parts.Length - 1];
                 }
-                return "Unknown";
+                return "UNK";
             }
         }
 
