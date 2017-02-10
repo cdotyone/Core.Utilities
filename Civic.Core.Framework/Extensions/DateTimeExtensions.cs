@@ -14,7 +14,7 @@ namespace Civic.Core.Framework.Extensions
             return null;
         }
 
-        public static DateTime? EndofDay(this DateTime? value)
+        public static DateTime? EndOfDay(this DateTime? value)
         {
             if (value.HasValue) return DateTime.Parse(value.Value.ToShortDateString()).AddDays(1).AddMilliseconds(-1);
             return null;
