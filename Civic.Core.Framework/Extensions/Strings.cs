@@ -7,5 +7,10 @@
             if (maxLength > instr.Length) maxLength = instr.Length;
             return instr.Substring(0, maxLength);
         }
+
+        public static bool IsNullOrEmpty(this string instr)
+        {
+            return string.IsNullOrEmpty(instr);
+        }
     }
 }
