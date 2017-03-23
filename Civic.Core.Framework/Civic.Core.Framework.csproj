@@ -108,6 +108,7 @@
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="Security\Impersonator.cs" />
     <Compile Include="Security\IdentityManager.cs" />
+    <Compile Include="Web\Handlers\AngularLinkHandler.cs" />
     <Compile Include="Web\Modules\Cors.cs" />
     <Compile Include="Web\Modules\DevAppProxy.cs" />
     <Compile Include="Web\Modules\DevAppRewrite.cs" />
