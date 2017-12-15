@@ -1,30 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Civic.Core.Framework", "Civic.Core.Framework\Civic.Core.Framework.csproj", "{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{645C9A7B-786E-4A04-97FC-E3B2C1B6D55E}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.gitlab-ci.yml = .gitlab-ci.yml
 		Nuget\Civic.Core.Framework.nuspec = Nuget\Civic.Core.Framework.nuspec
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Nuget|Any CPU = Nuget|Any CPU
+		Nuget-45|Any CPU = Nuget-45|Any CPU
+		Nuget-46|Any CPU = Nuget-46|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Nuget|Any CPU.ActiveCfg = Nuget|Any CPU
-		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Nuget|Any CPU.Build.0 = Nuget|Any CPU
+		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Nuget-45|Any CPU.ActiveCfg = Nuget-46|Any CPU
+		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Nuget-45|Any CPU.Build.0 = Nuget-46|Any CPU
+		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Nuget-46|Any CPU.ActiveCfg = Nuget-46|Any CPU
+		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Nuget-46|Any CPU.Build.0 = Nuget-46|Any CPU
 		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EE80B01-8ACE-430A-8D39-3A53786568F1}
 	EndGlobalSection
 EndGlobal
