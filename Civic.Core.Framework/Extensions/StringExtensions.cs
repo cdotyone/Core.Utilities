@@ -34,11 +34,11 @@ namespace Civic.Core.Framework.Extensions
 
 
         [DebuggerStepThrough]
-        public static DateTime? ToDate(this string value, DateTime defaultDate)
+        public static DateTime? ToDate(this string value, DateTime? defaultDate = null)
         {
             if (value.IsNullOrWhiteSpace())
             {
-                value = "";
+                return defaultDate;
             }
 
             if (DateTime.TryParse(value.Trim(), out var item)) return item;
