@@ -21,6 +21,11 @@ namespace Civic.Core.Framework.Extensions
             return string.IsNullOrEmpty(instr);
         }
 
+        [DebuggerStepThrough]
+        public static bool IsNullOrWhiteSpace(this string instr)
+        {
+            return string.IsNullOrWhiteSpace(instr);
+        }
 
         [DebuggerStepThrough]
         public static int? ToInteger(this string instr)
