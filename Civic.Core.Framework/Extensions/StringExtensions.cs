@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
-using System.Security;
 using System.Security.Cryptography;
 
 namespace Civic.Core.Framework.Extensions
@@ -25,6 +24,25 @@ namespace Civic.Core.Framework.Extensions
         public static bool IsNullOrWhiteSpace(this string instr)
         {
             return string.IsNullOrWhiteSpace(instr);
+        }
+
+        [DebuggerStepThrough]
+        public static bool IsEqual(this string instr,string compareTo, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            return string.Compare(instr, compareTo, stringComparison)==0;
+        }
+
+
+        [DebuggerStepThrough]
+        public static DateTime? ToDate(this string value, DateTime defaultDate)
+        {
+            if (value.IsNullOrWhiteSpace())
+            {
+                value = "";
+            }
+
+            if (DateTime.TryParse(value.Trim(), out var item)) return item;
+            return null;
         }
 
         [DebuggerStepThrough]
