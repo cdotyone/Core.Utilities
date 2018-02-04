@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Civic.Core.Framework.Extensions
 {
     public static class DictionaryExtension
     {
+        [DebuggerStepThrough]
         public static string MacroReplace<T>(this Dictionary<string, T> nvc, string instr, bool removeUnknown = false)
         {
             for (var i = 0; i < 5; i++)
@@ -47,6 +49,7 @@ namespace Civic.Core.Framework.Extensions
             return instr;
         }
 
+        [DebuggerStepThrough]
         public static Dictionary<string, T> Clone<T>(this Dictionary<string, T> nvc)
         {
             var clone = new Dictionary<string, T>();
@@ -55,6 +58,13 @@ namespace Civic.Core.Framework.Extensions
                 clone[pair.Key] = pair.Value;
             }
             return clone;
+        }
+
+        [DebuggerStepThrough]
+        public static T GetWithDefault<T>(this Dictionary<string, T> dict, string key, T defaultValue)
+        {
+            if (!dict.ContainsKey(key)) return defaultValue;
+            return dict[key];
         }
     }
 }

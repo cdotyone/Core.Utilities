@@ -91,13 +91,6 @@ namespace Civic.Core.Framework.Extensions
         }
 
         [DebuggerStepThrough]
-        public static T GetWithDefault<T>(this Dictionary<string,T> dict, string key, T defaultValue)
-        {
-            if (!dict.ContainsKey(key)) return defaultValue;
-            return dict[key];
-        }
-
-        [DebuggerStepThrough]
         public static DateTime? ToDateTime(this string instr)
         {
             if (instr.IsNullOrEmpty()) return null;
