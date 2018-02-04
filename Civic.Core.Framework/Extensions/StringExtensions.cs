@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Security.Cryptography;
@@ -87,6 +88,13 @@ namespace Civic.Core.Framework.Extensions
         {
             if (instr.IsNullOrEmpty()) return defaultValue;
             return instr;
+        }
+
+        [DebuggerStepThrough]
+        public static T GetWithDefault<T>(this Dictionary<string,T> dict, string key, T defaultValue)
+        {
+            if (!dict.ContainsKey(key)) return defaultValue;
+            return dict[key];
         }
 
         [DebuggerStepThrough]
