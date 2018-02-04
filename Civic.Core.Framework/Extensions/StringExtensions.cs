@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
+using System.Security;
+using System.Security.Cryptography;
 
 namespace Civic.Core.Framework.Extensions
 {
@@ -73,5 +76,17 @@ namespace Civic.Core.Framework.Extensions
             return false;
         }
 
+        [DebuggerStepThrough]
+        public static string ToHash(this string data)
+        {
+            if(data.IsNullOrEmpty())
+                return "";
+
+            var sha = SHA512.Create();
+            var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+            return BitConverter.ToString(hash);
+        }
     }
 }
+
