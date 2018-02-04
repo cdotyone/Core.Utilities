@@ -46,24 +46,35 @@ namespace Civic.Core.Framework.Extensions
         }
 
         [DebuggerStepThrough]
-        public static int? ToInteger(this string instr)
+        public static int? ToInteger(this string instr, int? defaultValue = null)
         {
             if (string.IsNullOrEmpty(instr))
             {
-                return null;
+                return defaultValue;
             }
-            int val;
-            if (int.TryParse(instr, out val)) return val;
+
+            if (int.TryParse(instr, out var val)) return val;
             return null;
         }
 
-
         [DebuggerStepThrough]
-        public static double? ToDouble(this string instr)
+        public static long? ToLong(this string instr,long? defaultValue = null)
         {
             if (string.IsNullOrEmpty(instr))
             {
-                return null;
+                return defaultValue;
+            }
+
+            if (long.TryParse(instr, out var val)) return val;
+            return null;
+        }
+
+        [DebuggerStepThrough]
+        public static double? ToDouble(this string instr, long? defaultValue = null)
+        {
+            if (string.IsNullOrEmpty(instr))
+            {
+                return defaultValue;
             }
             double val;
             if (double.TryParse(instr, out val)) return val;
@@ -72,9 +83,9 @@ namespace Civic.Core.Framework.Extensions
 
 
         [DebuggerStepThrough]
-        public static string UseDefault(this string instr, string def)
+        public static string UseDefault(this string instr, string defaultValue)
         {
-            if (instr.IsNullOrEmpty()) return def;
+            if (instr.IsNullOrEmpty()) return defaultValue;
             return instr;
         }
 
@@ -89,9 +100,9 @@ namespace Civic.Core.Framework.Extensions
         }
 
         [DebuggerStepThrough]
-        public static bool ToBool(this string instr)
+        public static bool ToBool(this string instr,bool defaultValue = false)
         {
-            if (instr.IsNullOrEmpty()) return false;
+            if (instr.IsNullOrEmpty()) return defaultValue;
 
             instr = instr.ToLowerInvariant();
 
