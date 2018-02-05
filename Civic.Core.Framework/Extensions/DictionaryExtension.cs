@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Civic.Core.Framework.Extensions
 {
+    // ReSharper disable PossibleInvalidOperationException
+
     public static class DictionaryExtension
     {
         [DebuggerStepThrough]
@@ -63,8 +66,37 @@ namespace Civic.Core.Framework.Extensions
         [DebuggerStepThrough]
         public static T GetWithDefault<T>(this Dictionary<string, T> dict, string key, T defaultValue)
         {
-            if (!dict.ContainsKey(key)) return defaultValue;
+            if (!dict.ContainsKey(key) || dict[key].ToString().IsNullOrWhiteSpace()) return defaultValue;
             return dict[key];
         }
+
+        [DebuggerStepThrough]
+        public static bool GetWithDefault(this Dictionary<string, string> dict, string key, bool defaultValue)
+        {
+            if (!dict.ContainsKey(key) || dict[key].IsNullOrWhiteSpace()) return defaultValue;
+            return dict[key].ToBool(defaultValue);
+        }
+
+        [DebuggerStepThrough]
+        public static int GetWithDefault(this Dictionary<string, string> dict, string key, int defaultValue)
+        {
+            if (!dict.ContainsKey(key) || dict[key].IsNullOrWhiteSpace()) return defaultValue;
+            return dict[key].ToInteger(defaultValue).Value;
+        }
+
+        [DebuggerStepThrough]
+        public static long GetWithDefault(this Dictionary<string, string> dict, string key, long defaultValue)
+        {
+            if (!dict.ContainsKey(key) || dict[key].IsNullOrWhiteSpace()) return defaultValue;
+            return dict[key].ToLong(defaultValue).Value;
+        }
+
+        [DebuggerStepThrough]
+        public static DateTime GetWithDefault(this Dictionary<string, string> dict, string key, DateTime defaultValue)
+        {
+            if (!dict.ContainsKey(key) || dict[key].IsNullOrWhiteSpace()) return defaultValue;
+            return dict[key].ToDate(defaultValue).Value;
+        }
+
     }
 }
