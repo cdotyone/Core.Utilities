@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -112,11 +113,11 @@ namespace Civic.Core.Framework
 			try
 			{
 				MethodInfo methodInfo = typeof(Page).GetMethod("DecryptString", BindingFlags.NonPublic | BindingFlags.Static);
-				return (string)methodInfo.Invoke(null, new object[] { queryStringParameter });
+				return (string)methodInfo?.Invoke(null, new object[] { queryStringParameter });
 			}
 			catch (TargetInvocationException exception)
 			{
-			    if (exception.InnerException != null && exception.InnerException is CryptographicException)
+			    if (exception.InnerException is CryptographicException)
 					throw new ApplicationException("Failed to decrypt string. Check that the WebResource or ScriptResource is valid. Try generating a fresh WebResource or ScriptResource.");
 			    throw;
 			}
@@ -125,10 +126,81 @@ namespace Civic.Core.Framework
 		public static string EncryptQueryParameter(string queryStringParameter)
 		{
 			MethodInfo methodInfo = typeof(Page).GetMethod("EncryptString", BindingFlags.NonPublic | BindingFlags.Static);
-			return (string)methodInfo.Invoke(null, new object[] { queryStringParameter });
+			return (string)methodInfo?.Invoke(null, new object[] { queryStringParameter });
 		}
 
-		#endregion
-	}
+	    public static string CreateHash(string hashType,Stream stream)
+	    {
+	        HashAlgorithm alg;
+
+	        switch(hashType.ToUpperInvariant())
+	        {
+	            case "KEYED":
+	                alg = KeyedHashAlgorithm.Create();
+	                break;
+	            case "MD5":
+	                alg = MD5.Create();
+	                break;
+                case "RIPEMD160":
+	                alg = RIPEMD160.Create();
+	                break;
+	            case "SHA1":
+	                alg = SHA1.Create();
+	                break;
+	            case "SHA256":
+	                alg = SHA256.Create();
+	                break;
+	            case "SHA384":
+	                alg = SHA384.Create();
+	                break;
+	            default:
+	                alg = SHA512.Create();
+	                break;
+            }
+
+	        var hash = alg.ComputeHash(stream);
+	        return Convert.ToBase64String(hash);
+	    }
+
+	    public static string CreateHash(string hashType, Byte[] bytes)
+	    {
+	        HashAlgorithm alg;
+
+	        switch (hashType.ToUpperInvariant())
+	        {
+	            case "KEYED":
+	                alg = KeyedHashAlgorithm.Create();
+	                break;
+	            case "MD5":
+	                alg = MD5.Create();
+	                break;
+	            case "RIPEMD160":
+	                alg = RIPEMD160.Create();
+	                break;
+	            case "SHA1":
+	                alg = SHA1.Create();
+	                break;
+	            case "SHA256":
+	                alg = SHA256.Create();
+	                break;
+	            case "SHA384":
+	                alg = SHA384.Create();
+	                break;
+	            default:
+	                alg = SHA512.Create();
+	                break;
+	        }
+
+	        var hash = alg.ComputeHash(bytes);
+	        return Convert.ToBase64String(hash);
+	    }
+
+	    public static string CreateHash(string hashType, string stringValue)
+	    {
+	        return CreateHash(hashType, Encoding.UTF8.GetBytes(stringValue));
+	    }
+
+        #endregion
+    }
 
 }
