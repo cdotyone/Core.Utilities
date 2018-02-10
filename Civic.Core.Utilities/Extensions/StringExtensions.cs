@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
-using System.Security.Cryptography;
 
 namespace Civic.Core.Utilities.Extensions
 {
@@ -109,18 +106,6 @@ namespace Civic.Core.Utilities.Extensions
 
             if (instr == "y" || instr == "t" || instr == "true" || instr == "yes") return true;
             return false;
-        }
-
-        [DebuggerStepThrough]
-        public static string ToHash(this string data)
-        {
-            if(data.IsNullOrEmpty())
-                return "";
-
-            var sha = SHA512.Create();
-            var hash = sha.ComputeHash(Encoding.UTF8.GetBytes(data));
-
-            return BitConverter.ToString(hash);
         }
     }
 }
