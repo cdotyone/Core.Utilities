@@ -4,9 +4,9 @@ using System.IO;
 using System.Web;
 using Civic.Core.Caching;
     using Civic.Core.Configuration;
-    using Civic.Core.Framework.Configuration;
+    using Civic.Core.Utilities.Configuration;
 
-namespace Civic.Core.Framework.Web
+namespace Civic.Core.Utilities.Web
 {
     public static class TemplateHelper
     {
