@@ -6,8 +6,8 @@
     <ProjectGuid>{5F6F5303-3D84-4D29-8FBA-3B1D54EE879D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Civic.Core.Framework</RootNamespace>
-    <AssemblyName>Civic.Core.Framework</AssemblyName>
+    <RootNamespace>Civic.Core.Utilities</RootNamespace>
+    <AssemblyName>Civic.Core.Utilities</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -69,12 +69,10 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Civic.Core.Caching" Version="1.24.782" />
-    <PackageReference Include="Civic.Core.Configuration" Version="1.24.514" />
-    <PackageReference Include="Civic.Core.Data" Version="1.24.783" />
-    <PackageReference Include="Civic.Core.Logging" Version="1.26.773" />
+    <PackageReference Include="Civic.Core.Configuration">
+      <Version>1.24.514</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Net.Compilers" Version="2.6.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -93,31 +91,18 @@
     <Compile Include="..\References\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
-    <Compile Include="Configuration\DevAppElement.cs" />
-    <Compile Include="Configuration\DevlopmentAppConfig.cs" />
-    <Compile Include="Configuration\IdentitySection.cs" />
-    <Compile Include="Configuration\CorsConfig.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
-    <Compile Include="EnumHelper.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CryptoHelper.cs" />
-    <Compile Include="ReflectionHelper.cs" />
-    <Compile Include="ResourceHelper.cs" />
-    <Compile Include="Security\Impersonator.cs" />
-    <Compile Include="Security\IdentityManager.cs" />
-    <Compile Include="Web\Handlers\AngularLinkHandler.cs" />
-    <Compile Include="Web\Modules\Cors.cs" />
-    <Compile Include="Web\Modules\DevAppProxy.cs" />
-    <Compile Include="Web\Modules\DevAppRewrite.cs" />
-    <Compile Include="Web\TemplateHelper.cs" />
+    <Compile Include="Reflection\EnumHelper.cs" />
+    <Compile Include="Reflection\ReflectionHelper.cs" />
+    <Compile Include="Reflection\ResourceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\References\civic.snk">
       <Link>civic.snk</Link>
     </None>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

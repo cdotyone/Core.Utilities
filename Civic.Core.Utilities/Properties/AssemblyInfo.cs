@@ -6,4 +6,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: Guid("38556105-5bd2-45fd-b924-088e95fe853a")]
+[assembly: Guid("D53DFE88-43E4-4A37-9AAD-8F7A978E11FA")]
