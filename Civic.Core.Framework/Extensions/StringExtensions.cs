@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Civic.Core.Framework.Extensions
+namespace Civic.Core.Utilities.Extensions
 {
     public static class StringExtensions
     {

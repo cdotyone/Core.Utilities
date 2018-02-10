@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Civic.Core.Framework.Extensions
+namespace Civic.Core.Utilities.Extensions
 {
     public static class DateTimeExtensions
     {

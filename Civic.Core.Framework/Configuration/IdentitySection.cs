@@ -1,6 +1,6 @@
 ﻿using Civic.Core.Configuration;
 
-namespace Civic.Core.Framework.Configuration
+namespace Civic.Core.Utilities.Configuration
 {
     public class IdentityConfig : NamedConfigurationElement
     {

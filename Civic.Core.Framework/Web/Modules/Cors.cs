@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Web;
-using Civic.Core.Framework.Configuration;
+using Civic.Core.Utilities.Configuration;
 
-namespace Civic.Core.Framework.Web.Modules
+namespace Civic.Core.Utilities.Web.Modules
 {
 	public class Cors : IHttpModule
 	{

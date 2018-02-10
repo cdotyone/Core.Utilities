@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Civic.Core.Framework.Extensions
+namespace Civic.Core.Utilities.Extensions
 {
     // ReSharper disable PossibleInvalidOperationException
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Civic.Core.Framework.Web.Handlers
+namespace Civic.Core.Utilities.Web.Handlers
 {
     public class AngularLinkHandler : IHttpHandler
     {

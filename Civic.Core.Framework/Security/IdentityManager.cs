@@ -1,7 +1,7 @@
 ﻿using System.Web;
-using Civic.Core.Framework.Configuration;
+using Civic.Core.Utilities.Configuration;
 
-namespace Civic.Core.Framework.Security
+namespace Civic.Core.Utilities.Security
 {
     public static class IdentityManager
     {

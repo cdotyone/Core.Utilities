@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Civic.Core.Framework.Helpers
+namespace Civic.Core.Utilities.Helpers
 {
     public static class EnumHelper
     {

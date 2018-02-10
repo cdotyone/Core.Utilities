@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web;
 
-namespace Civic.Core.Framework.Web.Modules
+namespace Civic.Core.Utilities.Web.Modules
 {
     /// <summary>
     /// This class is designed to help with developing with SPA type applications when developing and working on the intregration of the SPA HTML to the back-end web-api server.
