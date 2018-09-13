@@ -107,6 +107,14 @@ namespace Civic.Core.Utilities.Extensions
             if (instr == "y" || instr == "t" || instr == "true" || instr == "yes") return true;
             return false;
         }
+
+        [DebuggerStepThrough]
+        public static string InsureUID(this string instr)
+        {
+            if (instr.IsNullOrEmpty()) return Guid.NewGuid().ToUID();
+
+            return instr;
+        }
     }
 }
 
