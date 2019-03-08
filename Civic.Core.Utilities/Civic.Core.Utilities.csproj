@@ -73,7 +73,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Civic.Core.Configuration">
-      <Version>1.26.11</Version>
+      <Version>1.26.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Net.Compilers" Version="2.11.0-beta1-final">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
