@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{645C9A7B-786E-4A04-97FC-E3B2C1B6D55E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.gitlab-ci.yml = .gitlab-ci.yml
+		Nuget\Core.Utilities.nuspec = Nuget\Core.Utilities.nuspec
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Utilities", "Core.Utilities\Core.Utilities.csproj", "{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Nuget-45|Any CPU = Nuget-45|Any CPU
+		Nuget-46|Any CPU = Nuget-46|Any CPU
+		Nuget-47|Any CPU = Nuget-47|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Nuget-45|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Nuget-45|Any CPU.Build.0 = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Nuget-46|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Nuget-46|Any CPU.Build.0 = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Nuget-47|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Nuget-47|Any CPU.Build.0 = Debug|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63E6CA3-F60D-400E-8CDE-BD66E2836E03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6EE80B01-8ACE-430A-8D39-3A53786568F1}
+	EndGlobalSection
+EndGlobal

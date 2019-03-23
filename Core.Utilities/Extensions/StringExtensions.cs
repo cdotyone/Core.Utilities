@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Civic.Core.Utilities.Extensions
+namespace Core.Utilities.Extensions
 {
     public static class StringExtensions
     {

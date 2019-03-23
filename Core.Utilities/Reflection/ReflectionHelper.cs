@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using Civic.Core.Configuration;
+using Core.Configuration.Framework;
 
-namespace Civic.Core.Utilities.Reflection
+namespace Core.Utilities.Reflection
 {
     public static class ReflectionHelper
     {
