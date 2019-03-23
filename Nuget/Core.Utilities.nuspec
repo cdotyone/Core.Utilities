@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Civic.Core.Utilities</id>
+    <id>Core.Utilities</id>
     <version>$version$</version>
     <title />
     <authors>Chris Doty</authors>
@@ -9,7 +9,7 @@
     <iconUrl>http://nuget.civic.com/content/core.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>General Utilities</description>
-    <summary>Civic.Core.Utilities</summary>
+    <summary>Core.Utilities</summary>
     <dependencies>
       <group>
         <dependency id="Civic.Core.Configuration" version="[1.26.12,2.0.0)" xmlns="" />
@@ -21,11 +21,7 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="..\Civic.Core.Utilities\bin\nuget-45\Civic.Core.Utilities.Dll" target="lib\net45" />
-    <file src="..\Civic.Core.Utilities\bin\nuget-45\Civic.Core.Utilities.pdb" target="lib\net45" />
-    <file src="..\Civic.Core.Utilities\bin\nuget-46\Civic.Core.Utilities.Dll" target="lib\net46" />
-    <file src="..\Civic.Core.Utilities\bin\nuget-46\Civic.Core.Utilities.pdb" target="lib\net46" />
-    <file src="..\Civic.Core.Utilities\bin\nuget-47\Civic.Core.Utilities.Dll" target="lib\net47" />
-    <file src="..\Civic.Core.Utilities\bin\nuget-47\Civic.Core.Utilities.pdb" target="lib\net47" />
+    <file src="..\Core.Utilities\bin\Release\net471\Core.Utilities.*" target="lib\net471" />
+    <file src="..\Core.Utilities\bin\Release\netstandard2.0\Core.Utilities.*" target="lib\netstandard2.0" />
   </files>
 </package>
