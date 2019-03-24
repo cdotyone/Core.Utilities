@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>Core.Utilities</id>
+    <id>Stack.Core.Utilities</id>
     <version>$version$</version>
     <title />
     <authors>Chris Doty</authors>
@@ -9,10 +9,10 @@
     <iconUrl>http://nuget.civic.com/content/core.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>General Utilities</description>
-    <summary>Core.Utilities</summary>
+    <summary>Stack.Core.Utilities</summary>
     <dependencies>
       <group>
-        <dependency id="Civic.Core.Configuration" version="[1.26.12,2.0.0)" xmlns="" />
+        <dependency id="Stack.Civic.Core.Configuration" version="[2.0.9,3.0.0)" xmlns="" />
       </group>
     </dependencies>
     <frameworkAssemblies>
