@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net48'">
-    <DefineConstants>NET471;NETFULL</DefineConstants>
+    <DefineConstants>NET48;NETFULL</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
