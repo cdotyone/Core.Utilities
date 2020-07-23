@@ -6,8 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{645C9A7B-786E-4A04-97FC-E3B2C1B6D55E}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		.gitlab-ci.yml = .gitlab-ci.yml
 		commitlint.config.js = commitlint.config.js
+		.github\workflows\dotnet-core.yml = .github\workflows\dotnet-core.yml
 		package.json = package.json
 	EndProjectSection
 EndProject
