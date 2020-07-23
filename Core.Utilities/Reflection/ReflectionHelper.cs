@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using Core.Configuration.Framework;
 
 namespace Core.Utilities.Reflection
 {
