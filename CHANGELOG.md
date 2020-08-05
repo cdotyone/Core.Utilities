@@ -1,3 +1,12 @@
+## [2.0.13](https://github.com/cdotyone/Core.Utilities/compare/v2.0.12...v2.0.13) (2020-08-05)
+
+
+### Bug Fixes
+
+* add string yes no ([8f239e6](https://github.com/cdotyone/Core.Utilities/commit/8f239e60ce45cdfbec512793705609b1d33bf37f))
+
+
+
 ## [2.0.12](https://github.com/cdotyone/Core.Utilities/compare/v2.0.11...v2.0.12) (2020-08-05)
 
 
