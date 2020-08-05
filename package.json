@@ -1,6 +1,6 @@
 {
   "name": "utilities",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "utilities",
   "devDependencies": {
     "@commitlint/cli": "^7.5.2",
