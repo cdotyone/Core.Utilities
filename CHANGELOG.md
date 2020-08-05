@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/cdotyone/Core.Utilities/compare/v2.0.13...v2.1.0) (2020-08-05)
+
+
+### Features
+
+* add default extensions ([a8b3316](https://github.com/cdotyone/Core.Utilities/commit/a8b3316e134f419d6f5f3f4e7dd407132e0fd049))
+
+
+
 ## [2.0.13](https://github.com/cdotyone/Core.Utilities/compare/v2.0.12...v2.0.13) (2020-08-05)
 
 
