@@ -25,9 +25,9 @@ namespace Core.Utilities.Extensions
         }
 
         [DebuggerStepThrough]
-        public static bool IsEqual(this string instr,string compareTo, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
+        public static bool IsEqual(this string instr, string compareTo, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
         {
-            return string.Compare(instr, compareTo, stringComparison)==0;
+            return string.Compare(instr, compareTo, stringComparison) == 0;
         }
 
 
@@ -56,7 +56,7 @@ namespace Core.Utilities.Extensions
         }
 
         [DebuggerStepThrough]
-        public static long? ToLong(this string instr,long? defaultValue = null)
+        public static long? ToLong(this string instr, long? defaultValue = null)
         {
             if (string.IsNullOrEmpty(instr))
             {
@@ -98,7 +98,35 @@ namespace Core.Utilities.Extensions
         }
 
         [DebuggerStepThrough]
-        public static bool ToBool(this string instr,bool defaultValue = false)
+        public static string NullToUpper(this string instr)
+        {
+            if (instr.IsNullOrEmpty()) return null;
+            return instr.ToUpperInvariant();
+        }
+
+        [DebuggerStepThrough]
+        public static string NullToLower(this string instr)
+        {
+            if (instr.IsNullOrEmpty()) return null;
+            return instr.ToUpperInvariant();
+        }
+
+        [DebuggerStepThrough]
+        public static string EmptyToNull(this string instr)
+        {
+            if (instr.IsNullOrEmpty()) return null;
+            return instr;
+        }
+
+        [DebuggerStepThrough]
+        public static string NullToEmpty(this string instr)
+        {
+            if (instr.IsNullOrEmpty()) return "";
+            return instr;
+        }
+
+        [DebuggerStepThrough]
+        public static bool ToBool(this string instr, bool defaultValue = false)
         {
             if (instr.IsNullOrEmpty()) return defaultValue;
 
@@ -106,6 +134,18 @@ namespace Core.Utilities.Extensions
 
             if (instr == "y" || instr == "t" || instr == "true" || instr == "yes") return true;
             return false;
+        }
+
+        [DebuggerStepThrough]
+        public static string ToYN(this bool instr)
+        {
+            return instr ? "Y" : "N";
+        }
+
+        [DebuggerStepThrough]
+        public static string ToYN(this bool? instr)
+        {
+            return instr.HasValue && instr.Value ? "Y" : "N";
         }
     }
 }
