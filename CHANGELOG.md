@@ -1,4 +1,17 @@
-## 2.0.3 (2020-07-23)
+## [2.0.12](https://github.com/cdotyone/Core.Utilities/compare/v2.0.11...v2.0.12) (2020-08-05)
+
+
+### Bug Fixes
+
+* package version ([4a3c3b0](https://github.com/cdotyone/Core.Utilities/commit/4a3c3b0feb90f0497216e0d26a2f30e796a231ae))
+
+
+
+## [2.0.11](https://github.com/cdotyone/Core.Utilities/compare/v2.0.10...v2.0.11) (2020-07-25)
+
+
+
+## [2.0.3](https://github.com/cdotyone/Core.Utilities/compare/02ebae2cc2fa3bf83ed74cc509b0d1b326e5c9bc...v2.0.3) (2020-07-23)
 
 
 ### Bug Fixes
