@@ -1,4 +1,13 @@
-# [2.1.0](https://github.com/cdotyone/Core.Utilities/compare/v2.0.13...v2.1.0) (2020-08-05)
+# [2.2.0](https://github.com/cdotyone/Core.Utilities/compare/v2.0.14...v2.2.0) (2021-12-01)
+
+
+### Features
+
+* add 5.0 and 6.0 support drop 3.1 ([b75b309](https://github.com/cdotyone/Core.Utilities/commit/b75b3092ca06ac2506978a94eec43726fc940b14))
+
+
+
+## [2.0.14](https://github.com/cdotyone/Core.Utilities/compare/v2.0.13...v2.0.14) (2020-08-05)
 
 
 ### Features
